@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Dev Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="shell">
+
+  <header>
+    <div class="logo">dev<span>/</span>dash</div>
+    <div class="clock" id="liveClock"></div>
+  </header>
+
+  <div class="grid">
+
+    
+    <div class="card github-card">
+      <div class="card-label">GitHub</div>
+      <div id="ghContent">
+        <div class="gh-input-row">
+          <input class="gh-input" id="ghUsernameInput" type="text" placeholder="Enter GitHub username…" />
+          <button class="btn" onclick="fetchGitHub()">Fetch</button>
+        </div>
+        <p style="font-size:12px;color:var(--muted);margin-top:10px;font-family:var(--mono);">Enter a username to load stats and repos.</p>
+      </div>
+    </div>
+
+    
+    <div class="card pomodoro-card">
+      <div class="card-label">Pomodoro</div>
+
+      <div class="pomo-modes">
+        <button class="pomo-mode-btn active" onclick="setMode('focus',25)">Focus</button>
+        <button class="pomo-mode-btn" onclick="setMode('short',5)">Short</button>
+        <button class="pomo-mode-btn" onclick="setMode('long',15)">Long</button>
+      </div>
+
+      <div class="pomo-ring">
+        <svg viewBox="0 0 120 120" width="120" height="120">
+          <circle class="pomo-ring-bg" cx="60" cy="60" r="51"/>
+          <circle class="pomo-ring-fill" id="pomoRing" cx="60" cy="60" r="51"/>
+        </svg>
+        <div class="pomo-inner">
+          <div class="pomo-min" id="pomoMin">25</div>
+          <div class="pomo-sec" id="pomoSec">:00</div>
+        </div>
+      </div>
+
+      <div class="pomo-controls">
+        <button class="btn btn-ghost" onclick="resetTimer()">Reset</button>
+        <button class="btn" id="pomoBtn" onclick="toggleTimer()">Start</button>
+      </div>
+
+      <div class="pomo-sessions">
+        <div class="card-label" style="margin-bottom:8px;">Sessions today</div>
+        <div class="pomo-dots" id="pomoDots"></div>
+      </div>
+    </div>
+
+    
+    <div class="card notes-card">
+      <div class="card-label">Notes</div>
+      <textarea class="notes-area" id="notesArea" placeholder="// quick thoughts, links, snippets…" oninput="saveNotes()"></textarea>
+      <div class="notes-footer">
+        <span class="notes-chars" id="notesChars">0 chars</span>
+        <button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;" onclick="clearNotes()">Clear</button>
+      </div>
+    </div>
+
+    
+    <div class="card todo-card">
+      <div class="card-label">Tasks</div>
+      <div class="todo-input-row">
+        <input class="todo-input" id="todoInput" placeholder="Add a task…" onkeydown="if(event.key==='Enter')addTodo()" />
+        <button class="btn" onclick="addTodo()">Add</button>
+      </div>
+      <div class="todo-list" id="todoList"></div>
+      <div class="todo-footer">
+        <span id="todoCount">0 remaining</span>
+        <button class="btn btn-ghost" style="font-size:11px;padding:4px 10px;" onclick="clearDone()">Clear done</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
